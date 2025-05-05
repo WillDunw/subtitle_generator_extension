@@ -3,14 +3,16 @@
   "description": "Generate subtitles for any audio",
   "version": "1.0",
   "manifest_version": 3,
+  "permissions": ["scripting"],
   "action": {
-    "default_popup": "./subtitle/subtitle.html"
+    "default_popup": "./subtitleController/subtitleController.html"
   },
 
     "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["./subtitle/subtitle.js"]
+      "js": ["./subtitle.js"],
+      "run_at": "document_idle"
     }
     ],
   "icons": {
