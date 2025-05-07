@@ -3,18 +3,23 @@
   "description": "Generate subtitles for any audio",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["scripting", "tabCapture"],
+  "permissions": ["scripting", "tabCapture", "activeTab"],
   "action": {
     "default_popup": "./subtitleController/subtitleController.html"
   },
 
-    "content_scripts": [
+  "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["./subtitle.js"],
-      "run_at": "document_idle"
+      "js": ["subtitle.js"]
     }
-    ],
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["processor.js"],
+      "matches": ["<all_urls>"]
+    }
+  ],
   "icons": {
     "16": "assets/microphone-16.png",
     "32": "assets/microphone-32.png",

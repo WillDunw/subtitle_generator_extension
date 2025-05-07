@@ -25,13 +25,8 @@ function displaySubtitle(text) {
   subtitle.textContent = text;
 };
 
-chrome.runtime.onMessage.addListener(async  (message, sender, sendResponse) => {
-  if (message.action === "toggleSubtitleGeneration") {
-    if (message.data == "true") {
-      displaySubtitle("Subtitles are ON");
-      
-    } else {
-      displaySubtitle("Subtitles are OFF");
-    }
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "displaySubtitle") {
+    displaySubtitle(message.data);
   }
 });
