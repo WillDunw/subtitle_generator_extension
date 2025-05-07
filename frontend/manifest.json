@@ -3,7 +3,7 @@
   "description": "Generate subtitles for any audio",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["scripting"],
+  "permissions": ["scripting", "tabCapture"],
   "action": {
     "default_popup": "./subtitleController/subtitleController.html"
   },

@@ -2,6 +2,9 @@ const bar = document.createElement("div");
 bar.id = "subtitle-bar";
 bar.textContent = "📢 Subtitles will appear here.";
 document.body.appendChild(bar);
+// const output = new AudioContext();
+// const source = output.createMediaStreamSource(stream);
+// source.connect(output.destination);
 
 Object.assign(bar.style, {
   position: "fixed",
@@ -22,10 +25,11 @@ function displaySubtitle(text) {
   subtitle.textContent = text;
 };
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+chrome.runtime.onMessage.addListener(async  (message, sender, sendResponse) => {
   if (message.action === "toggleSubtitleGeneration") {
     if (message.data == "true") {
       displaySubtitle("Subtitles are ON");
+      
     } else {
       displaySubtitle("Subtitles are OFF");
     }
