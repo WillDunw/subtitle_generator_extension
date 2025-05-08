@@ -35,6 +35,14 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         type: 'stopProcessing'
       });
     await chrome.offscreen.closeDocument();
+
+    const [currentTab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+    await chrome.tabs.sendMessage(currentTab.id, {
+      type: 'hideSubtitle'
+    });
   }
 
   async function handlePassSubtitle(text) {

@@ -20,7 +20,6 @@ wss.on('connection', (ws) => {
   const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
 
   recognizer.recognizing = (_, e) => {
-    console.log("Recognizing text:", e.result.text);
     ws.send(JSON.stringify({ interim: e.result.text }));
   }
 
