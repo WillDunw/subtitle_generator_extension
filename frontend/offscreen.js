@@ -14,7 +14,6 @@ chrome.runtime.onMessage.addListener(async (message) => {
 
 async function startCapture(streamId) {
   try {
-    console.log("Starting capture with streamId:", streamId);
     const stream = await navigator.mediaDevices.getUserMedia({
         audio: {
           mandatory: {

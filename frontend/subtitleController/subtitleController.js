@@ -1,25 +1,25 @@
 let firstStart = true;
 let socket = new WebSocket("http://localhost:3000");
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   let state = document.getElementById("state");
   let toggle = document.getElementById("toggle");
+
+  await chrome.storage.local.get(["is_enabled"], function (result) {
+    if (result.is_enabled == "true") {
+      toggle.checked = true;
+      state.innerText = "On";
+    }
+  });
 
   toggle.addEventListener("change", async function (event) {
     state.innerText = "Loading...";
     if (event.target.checked) {
-      is_generating = true;
-      document.getElementById("state").innerText = "On";
+      state.innerText = "On";
 
       const [currentTab] = await chrome.tabs.query({
         active: true,
         currentWindow: true,
       });
-
-      const capturedTabs = await new Promise((resolve) => {
-        chrome.tabCapture.getCapturedTabs(resolve);
-      });
-    
-      const alreadyCaptured = capturedTabs.some(tab => tab.id === currentTab.id);
 
       const streamId = await chrome.tabCapture.getMediaStreamId({
         targetTabId: currentTab.id,
@@ -39,13 +39,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       );
 
+      await chrome.storage.local.set({ is_enabled: "true" });
     } else {
-      is_generating = false;
-      document.getElementById("state").innerText = "Off";
-      chrome.runtime.sendMessage(
-        {
-          type: "stopCapture",
-        });
+      state.innerText = "Off";
+      chrome.runtime.sendMessage({
+        type: "stopCapture",
+      });
+      await chrome.storage.local.set({ is_enabled: "false" });
     }
   });
 });
