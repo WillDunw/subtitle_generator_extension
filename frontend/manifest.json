@@ -3,9 +3,12 @@
   "description": "Generate subtitles for any audio",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["scripting", "tabCapture", "activeTab"],
+  "permissions": ["scripting", "tabCapture", "activeTab", "offscreen"],
   "action": {
     "default_popup": "./subtitleController/subtitleController.html"
+  },
+  "background": {
+    "service_worker": "background.js"
   },
 
   "content_scripts": [

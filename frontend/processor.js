@@ -4,10 +4,15 @@ class PCMWorkletProcessor extends AudioWorkletProcessor {
       super();
     }
   
-    process(inputs) {
+    process(inputs, outputs, parameters) {
       const input = inputs[0];
       const channelData = input[0]; // mono audio only
-  
+      const output = outputs[0];
+
+      for (let channel = 0; channel < input.length; ++channel) {
+        output[channel].set(input[channel]); // ✅ Pass through audio
+      }
+
       // Convert Float32 to Int16
       const int16Buffer = new Int16Array(channelData.length);
       for (let i = 0; i < channelData.length; i++) {

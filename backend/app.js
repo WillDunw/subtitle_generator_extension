@@ -1,5 +1,8 @@
+require('dotenv').config();
 const WebSocket = require('ws');
 const express = require('express');
+const sdk = require('microsoft-cognitiveservices-speech-sdk');
+
 
 const app = express();
 const PORT = 3000;
@@ -11,15 +14,24 @@ const server = app.listen(PORT, () => {
 const wss = new WebSocket.Server({ server });
 
 wss.on('connection', (ws) => {
-  console.log('[✓] WebSocket connected');
+  const speechConfig = sdk.SpeechConfig.fromSubscription(process.env.SPEECH_KEY, process.env.SPEECH_REGION);
+  const pushStream = sdk.AudioInputStream.createPushStream();
+  const audioConfig = sdk.AudioConfig.fromStreamInput(pushStream);
+  const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
 
-  ws.on('message', (data) => {
-    console.log(`[→] Received ${data.byteLength} bytes`);
-    // Echo back test text to client
-    ws.send(JSON.stringify({ text: "Received audio chunk!" }));
+  recognizer.recognizing = (_, e) => {
+    console.log("Recognizing text:", e.result.text);
+    ws.send(JSON.stringify({ interim: e.result.text }));
+  }
+
+  recognizer.startContinuousRecognitionAsync();
+
+  ws.on('message', (audioChunk) => {
+    pushStream.write(audioChunk);
   });
 
   ws.on('close', () => {
-    console.log('[x] WebSocket disconnected');
+    pushStream.close();
+    recognizer.stopContinuousRecognitionAsync();
   });
 });

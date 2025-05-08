@@ -26,7 +26,7 @@ function displaySubtitle(text) {
 };
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.action === "displaySubtitle") {
+  if (message.type === "displaySubtitle") {
     displaySubtitle(message.data);
   }
 });

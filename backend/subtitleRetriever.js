@@ -1,4 +1,4 @@
-const sdk = require('microsoft-cognitiveservices-speech-sdk');
+
 const WebSocket = require('ws');
 const fs = require('fs');
 
