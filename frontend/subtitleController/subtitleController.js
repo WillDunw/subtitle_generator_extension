@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   });
 
   toggle.addEventListener("change", async function (event) {
-    state.innerText = "Loading...";
     if (event.target.checked) {
       state.innerText = "On";
 

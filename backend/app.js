@@ -7,9 +7,7 @@ const sdk = require('microsoft-cognitiveservices-speech-sdk');
 const app = express();
 const PORT = 3000;
 
-const server = app.listen(PORT, () => {
-  console.log(`HTTP server running on http://localhost:${PORT}`);
-});
+const server = app.listen(PORT, () => {});
 
 const wss = new WebSocket.Server({ server });
 

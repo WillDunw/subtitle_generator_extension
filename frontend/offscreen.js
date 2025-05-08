@@ -14,18 +14,21 @@ chrome.runtime.onMessage.addListener(async (message) => {
 
 async function startCapture(streamId) {
   try {
+
     const stream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          mandatory: {
-            chromeMediaSource: 'tab',
-            chromeMediaSourceId: streamId,
-          }
+      audio: {
+        mandatory: {
+          chromeMediaSource: 'tab',
+          chromeMediaSourceId: streamId,
+          sampleRate: 48000,  // High-quality capture
+          channelCount: 1     // Azure requires mono
         }
-      });
+      }
+    });
 
     socket = new WebSocket("http://localhost:3000");
     
-    audioContext = new AudioContext({ sampleRate: 16000 });
+    audioContext = new AudioContext();
     source = audioContext.createMediaStreamSource(stream);
     
     await audioContext.audioWorklet.addModule('processor.js');
@@ -34,10 +37,11 @@ async function startCapture(streamId) {
     source.connect(workletNode);
     workletNode.connect(audioContext.destination);
     
-    workletNode.port.onmessage = (event) => {
-      const pcmBuffer = event.data;
-      if (socket && socket.readyState === WebSocket.OPEN) {
-        socket.send(pcmBuffer);
+
+     // Handle 16-bit PCM data for Azure
+     workletNode.port.onmessage = (event) => {
+      if (event.data.type === "audio16bit" && socket?.readyState === WebSocket.OPEN) {
+        socket.send(event.data.data); // Send raw ArrayBuffer
       }
     };
 
