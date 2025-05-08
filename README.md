@@ -2,7 +2,8 @@
 
 ![Status](https://img.shields.io/badge/status-in--progress-yellow)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Built with](https://img.shields.io/badge/built%20with-Azure%20Speech%20SDK-lightgrey)
+![Built with](https://img.shields.io/badge/built%20with-Express.js-lightgrey)
+![Powered by](https://img.shields.io/badge/powered%20by-Azure%20Speech%20SDK-blue)
 ![Platform](https://img.shields.io/badge/platform-Chrome-4285F4)
 
 Generate **live subtitles** on **any site with audio**, straight from your Chrome browser.
