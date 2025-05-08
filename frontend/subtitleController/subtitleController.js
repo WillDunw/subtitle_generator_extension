@@ -10,13 +10,19 @@ document.addEventListener("DOMContentLoaded", function () {
       is_generating = true;
       document.getElementById("state").innerText = "On";
 
-      const [tab] = await chrome.tabs.query({
+      const [currentTab] = await chrome.tabs.query({
         active: true,
         currentWindow: true,
       });
 
+      const capturedTabs = await new Promise((resolve) => {
+        chrome.tabCapture.getCapturedTabs(resolve);
+      });
+    
+      const alreadyCaptured = capturedTabs.some(tab => tab.id === currentTab.id);
+
       const streamId = await chrome.tabCapture.getMediaStreamId({
-        targetTabId: tab.id,
+        targetTabId: currentTab.id,
       });
 
       // Send message to background to start capture
@@ -24,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         {
           type: "startCapture",
           streamId: streamId,
+          tabId: currentTab.id,
         },
         (response) => {
           if (response.status === "offscreen_ready") {

@@ -3,7 +3,8 @@
   "description": "Generate subtitles for any audio",
   "version": "1.0",
   "manifest_version": 3,
-  "permissions": ["scripting", "tabCapture", "activeTab", "offscreen"],
+  "permissions": ["scripting", "tabCapture", "activeTab", "offscreen", "webNavigation"],
+  "host_permissions": ["<all_urls>"],
   "action": {
     "default_popup": "./subtitleController/subtitleController.html"
   },
@@ -14,7 +15,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["subtitle.js"]
+      "js": ["subtitleInitCS.js"]
     }
   ],
   "web_accessible_resources": [

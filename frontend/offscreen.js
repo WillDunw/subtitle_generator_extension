@@ -44,10 +44,9 @@ async function startCapture(streamId) {
 
     socket.onmessage = (event) => {
       const data = JSON.parse(event.data);
-      if (data.final) {
-        console.log("Received final text:", data.final);
-        chrome.runtime.sendMessage({ type: "displaySubtitle", text: data.final });
-      }
+      if (data.interim) {
+        chrome.runtime.sendMessage({ type: "passSubtitle", text: data.interim });
+       }
     };
     
   } catch (error) {
