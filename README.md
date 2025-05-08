@@ -30,6 +30,7 @@ This extension taps into **Azure Speech Services** to deliver **real-time transc
 ```bash
 git clone https://github.com/yourusername/subtitle-generator-extension.git
 cd subtitle-generator-extension
+```
 
 ### 2. Add your Azure credentials
 
@@ -38,12 +39,14 @@ Create a `.env` file in the `backend/` folder and provide your Azure Speech SDK 
 ```env
 AZURE_SPEECH_KEY=your_speech_key_here
 AZURE_REGION=your_region_here
+```
 
 ### 3. Install Backend Dependencies
 
 ```bash
 npm install
 npm start
+```
 
 ### 4. Load the extension in Chrome
 
