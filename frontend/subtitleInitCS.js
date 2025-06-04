@@ -27,7 +27,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     let wordArray = message.text.split(" ");
 
-    if (wordArray.length <= 20) {
+    if (wordArray.length <= 12) {
       subtitle.textContent = message.text;
     } else {
       wordArray = wordArray.slice(-20);

@@ -1,5 +1,3 @@
-let firstStart = true;
-let socket = new WebSocket("http://localhost:3000");
 document.addEventListener("DOMContentLoaded", async function () {
   let state = document.getElementById("state");
   let toggle = document.getElementById("toggle");
@@ -30,11 +28,6 @@ document.addEventListener("DOMContentLoaded", async function () {
           type: "startCapture",
           streamId: streamId,
           tabId: currentTab.id,
-        },
-        (response) => {
-          if (response.status === "offscreen_ready") {
-            console.log("Capture started in offscreen document");
-          }
         }
       );
 

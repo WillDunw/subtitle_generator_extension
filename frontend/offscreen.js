@@ -26,7 +26,7 @@ async function startCapture(streamId) {
       }
     });
 
-    socket = new WebSocket("http://localhost:3000");
+    socket = new WebSocket("https://subtitle-gen-wa-gcaxeyc5ana8ewax.canadacentral-01.azurewebsites.net");
     
     audioContext = new AudioContext();
     source = audioContext.createMediaStreamSource(stream);
