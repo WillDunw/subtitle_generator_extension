@@ -6,7 +6,7 @@
 ![Powered by](https://img.shields.io/badge/Powered%20By-Azure%20Speech%20SDK-blue)
 ![Platform](https://img.shields.io/badge/Platform-Chrome-4285F4)
 
-Chrome store: [English Subtitle Generator](https://chromewebstore.google.com/detail/english-subtitle-generato/cjdocegkaggldnkhilgackolfcmacdhm)
+Chrome store: ~~[English Subtitle Generator]~~ (had to be taken down due to free credit overuse)
 
 Generate **live subtitles** on **any site with audio**, straight from your Chrome browser.
 
